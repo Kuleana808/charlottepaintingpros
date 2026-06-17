@@ -430,10 +430,12 @@
     var ok=true;
     [name,phone,email,service].forEach(function(f){if(!f.value||!f.value.trim()){f.style.borderColor='#ef4444';ok=false;}else{f.style.borderColor='';}});
     if(!ok)return;
+    var payload={site:'charlottepaintingpros.com',name:name.value,phone:phone.value,email:email.value,service:service.value,message:(document.getElementById('message')||{}).value||''};
     this.style.display='none';
     var s=document.getElementById('formSuccess');
     s.classList.add('show');
     s.scrollIntoView({behavior:'smooth',block:'center'});
+    try{fetch('https://lead-handler.brent-akamine.workers.dev/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(err){}
   });
   document.querySelectorAll('.faq-q').forEach(function(b){
     b.addEventListener('click',function(){this.parentElement.classList.toggle('open');});
